@@ -1,33 +1,29 @@
 class Solution {
 public:
   vector<string> uncommonFromSentences(string A, string B) {
-    vector<string> result;
-    vector<string> Awords;
-    vector<string> Bwords;
-    int stepA = 0, stepB = 0;
-
-    for(int i = A.size(); i >= 0;i--,stepA++){
-      if(A[i] == ' '){
-        Awords.push_back(A.substr(i+1,stepA));
-        stepA = 0;
+    unordered_map<string, int> a, b;
+    vector<string> res;
+    string temp;
+    for(int i=0;i<=A.size();i++) {
+      if(i==A.size()||A[i]==' ') {
+        a[temp]++;
+        temp.clear();
       }
+      else temp.append(1, A[i]);
     }
-    for(int i = B.size(); i >= 0;i--,stepB++){
-      if(B[i] == ' '){
-        Bwords.push_back(B.substr(i+1,stepB));
-        stepB = 0;
+    for(int i=0;i<=B.size();i++) {
+      if(i==B.size()||B[i]==' ') {
+        b[temp]++;
+        temp.clear();
       }
+      else temp.append(1, B[i]);
     }
-    for(int i = 0; i < Awords.size();i++){
-      if(!Awords[i]){
-        result.push_back(Bwords[i]);
-      }else if(){
-        result.push_back(Awords[i]);
-      }else if(Awords[i]!= Bwords[i]){
-        result.push_back(Awords[i]);
-        result.push_back(Bwords[i]);
-      }
+    for(auto i : a) {
+      if(b.find(i.first)==b.end()&&i.second==1) res.push_back(i.first);
     }
-      return result;
+    for(auto i : b) {
+      if(a.find(i.first)==a.end()&&i.second==1) res.push_back(i.first);
+    }
+    return res;
   }
 };
