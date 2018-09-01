@@ -10,7 +10,7 @@ public:
   }
 
   bool Check(int num){
-    string numStr = to_String(num);
+    string numStr = to_string(num);
     for(char ch:numStr){
       if(ch == '0'|| num%(ch-'0')) return false;
     }
